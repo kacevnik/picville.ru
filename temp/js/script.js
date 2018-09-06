@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+$(document).ready(function() {
     $('.main-slider__slides').bxSlider({
         adaptiveHeight: true,
         pagerCustom: '.main-slider__control',
