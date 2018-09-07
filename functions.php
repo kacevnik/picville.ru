@@ -1,5 +1,9 @@
 <?php
 
+$item = 'Cool';
+
+add_theme_support( 'woocommerce' );
+
 if (!defined( 'FW' )){
     function com_version_wp(){
 
@@ -122,16 +126,23 @@ if (!function_exists('add_scripts')) { // если ф-я уже есть в до
         wp_deregister_script('jquery');
         //Подключаем основные плагины JS (Не нужные отключить!)
         wp_enqueue_script('jquery', get_template_directory_uri().'/js/jquery-3.2.0.min.js'); // библиотека jQuery
-        wp_enqueue_script('bxslider', get_template_directory_uri().'/js/jquery.bxslider.min.js','','',true);
+        wp_enqueue_script('owl', get_template_directory_uri().'/js/owl.carousel.min.js','','',true);
         wp_enqueue_script('main', get_template_directory_uri().'/js/main.js','','',true); // основные скрипты шаблона
         wp_enqueue_script('scripts', get_template_directory_uri().'/js/script.js','','',true); // основные скрипты шаблона
     }
+}
+
+add_action( 'woocommerce_before_main_content', 'show_main_slider', $priority = 5 );
+
+function show_main_slider(){
+    include 'include/main_slider.php';
 }
 
 add_action('wp_print_styles', 'add_styles'); // приклеем ф-ю на добавление стилей в хедер
 if (!function_exists('add_styles')) { // если ф-я уже есть в дочерней теме - нам не надо её определять
     function add_styles() { // добавление стилей
         if(is_admin()) return false; // если мы в админке - ничего не делаем
+        wp_enqueue_style( 'owl', get_template_directory_uri().'/css/owl.carousel.min.css' ); 
         wp_enqueue_style( 'reset', get_template_directory_uri().'/css/reset.css' ); // основные стили шаблона
         wp_enqueue_style( 'mainstyle', get_template_directory_uri().'/css/style.css' ); // основные стили шаблона
     }

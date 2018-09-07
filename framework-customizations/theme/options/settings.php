@@ -91,78 +91,92 @@
             'title' => __('Основные настройки', '{domain}'),
             'attr' => array('class' => 'custom-class', 'data-foo' => 'bar'),
         ),
-        'kdv_tap_gallary_post_new' => array(
+
+        'kdv_main_slider' => array(
             'type' => 'tab',
             'options' => array(
-                'kdv_gallery_off'  => array(
+                'kdv_slider_off'  => array(
                     'type'  => 'switch',
                     'value' => true, // checked/unchecked
-                    'label' => __('Включть галерею', '{domain}'),
+                    'label' => __('Включть слайдер', '{domain}'),
                     'desc'  => __('', '{domain}'),
-                    'help'  => __('Если включить, то галерея будет отражаться на главной странице', '{domain}')
+                    'help'  => __('Если включить, то слайдер будет отражаться на главной странице', '{domain}')
                 ),
 
-                'kdv_gallery_background' => array(
-                    'type'  => 'upload',
-                    'value' => array(
-                        /*
-                        'attachment_id' => '9',
-                        'url' => '//site.com/wp-content/uploads/2014/02/whatever.jpg'
-                        */
-                        // if value is set in code, it is not considered and not used
-                        // because there is no sense to set hardcode attachment_id
+                'kdv_add_new_main_slide' => array(
+                    'type' => 'addable-popup',
+                    'label' => __('Слайды', '{domain}'),
+                    'desc'  => __('', '{domain}'),
+                    'template' => '{{- option_1}}',
+                    'popup-title' => null,
+                    'size' => 'large', // small, medium, large
+                    'limit' => 0, // limit the number of popup`s that can be added
+                    'add-button-text' => __('Добавить слайд', '{domain}'),
+                    'sortable' => true,
+                    'popup-options' => array(
+                        'option_3' => array(
+                            'type'  => 'upload',
+                            'value' => array(
+                                /*
+                                'attachment_id' => '9',
+                                'url' => '//site.com/wp-content/uploads/2014/02/whatever.jpg'
+                                */
+                                // if value is set in code, it is not considered and not used
+                                // because there is no sense to set hardcode attachment_id
+                            ),
+                            'attr'  => array( 'class' => 'custom-class', 'data-foo' => 'bar' ),
+                            'label' => __('Изображение', '{domain}'),
+                            'desc'  => __('', '{domain}'),
+                            /**
+                             * If set to `true`, the option will allow to upload only images, and display a thumb of the selected one.
+                             * If set to `false`, the option will allow to upload any file from the media library.
+                             */
+                            'images_only' => true,
+                            /**
+                             * An array with allowed files extensions what will filter the media library and the upload files.
+                             */
+                            'files_ext' => array( 'jpg', 'png', 'gif' ),
+                            /**
+                             * An array with extra mime types that is not in the default array with mime types from the javascript Plupload library.
+                             * The format is: array( '<mime-type>, <ext1> <ext2> <ext2>' ).
+                             * For example: you set rar format to filter, but the filter ignore it , than you must set
+                             * the array with the next structure array( '.rar, rar' ) and it will solve the problem.
+                             */
+                            'extra_mime_types' => array( 'audio/x-aiff, aif aiff' )
+                        ),
+
+                        'option_1' => array(
+                            'label' => __('Заголовок', '{domain}'),
+                            'type' => 'text',
+                            'value' => '',
+                            'desc' => __('', '{domain}'),
+                        ),
+
+                        'option_2' => array(
+                            'type'  => 'textarea',
+                            'value' => '',
+                            'attr'  => array( 'class' => 'custom-class', 'data-foo' => 'bar' ),
+                            'label' => __('Текст слайдера', '{domain}'),
+                        ),
+
+                        'option_4' => array(
+                            'label' => __('Текст ссылки', '{domain}'),
+                            'type' => 'text',
+                            'value' => 'Узнать подробнее',
+                            'desc' => __('', '{domain}'),
+                        ),
+
+                        'option_5' => array(
+                            'label' => __('URL Ссылки', '{domain}'),
+                            'type' => 'text',
+                            'value' => '',
+                            'desc' => __('', '{domain}'),
+                        )
                     ),
-                    'attr'  => array( 'class' => 'custom-class', 'data-foo' => 'bar' ),
-                    'label' => __('Фон секции', '{domain}'),
-                    'desc'  => __('', '{domain}'),
-                    'help'  => __('Загрузите задний фон для секции галереи (разрешенные файлы для загрузки: jpg, png, gif), требуемые размеры ВхШ (850Х1920)', '{domain}'),
-                    /**
-                     * If set to `true`, the option will allow to upload only images, and display a thumb of the selected one.
-                     * If set to `false`, the option will allow to upload any file from the media library.
-                     */
-                    'images_only' => true,
-                    /**
-                     * An array with allowed files extensions what will filter the media library and the upload files.
-                     */
-                    'files_ext' => array( 'jpg', 'png', 'gif' ),
-                    /**
-                     * An array with extra mime types that is not in the default array with mime types from the javascript Plupload library.
-                     * The format is: array( '<mime-type>, <ext1> <ext2> <ext2>' ).
-                     * For example: you set rar format to filter, but the filter ignore it , than you must set
-                     * the array with the next structure array( '.rar, rar' ) and it will solve the problem.
-                     */
-                    'extra_mime_types' => array( 'audio/x-aiff, aif aiff' )
-                ),
-
-                'kdv_gallery_category' => array(
-                    'type'  => 'select',
-                    'value' => 'choice-3',
-                    'attr'  => array( 'class' => 'custom-class', 'data-foo' => 'bar' ),
-                    'label' => __('Рубрика', '{domain}'),
-                    'desc'  => __('', '{domain}'),
-                    'help'  => __('Выберите рубрику, посты каторой будут показываться.', '{domain}'),
-                    'choices' => $res_category_list,
-                    'no-validate' => false,
-                ),
-
-                'kdv_gallery_count_items' => array(
-                    'type'  => 'text',
-                    'value' => '7',
-                    'label' => __('Максимальное количество слайдов', '{domain}'),
-                    'desc'  => __('', '{domain}'),
-                    'help'  => __('Задайте максимальное количество слайдов для галереи.', '{domain}'),
-                ),
-
-                'kdv_gallery_speed' => array(
-                    'type'  => 'text',
-                    'value' => '500',
-                    'label' => __('Скорость анимации переходов', '{domain}'),
-                    'desc'  => __('', '{domain}'),
-                    'help'  => __('Задайте скорость анимации переходов для галереи при ручном перелистывании. (указать в милисекундах)', '{domain}'),
                 )
-
             ),
-            'title' => __('Галерея постов', '{domain}'),
+
+            'title' => __('Слайдер на главной', '{domain}'),
             'attr' => array('class' => 'custom-class', 'data-foo' => 'bar'),
         ),
     );

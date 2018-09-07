@@ -1,13 +1,4 @@
 jQuery(document).ready(function($) {
-    $('.main-slider__slides').bxSlider({
-        adaptiveHeight: true,
-        pagerCustom: '.main-slider__control',
-        nextText: ' ',
-        prevText: ' ',
-        onSliderLoad: function () {
-            $(".main-slider .bx-pager.bx-default-pager").remove();
-        }
-    });
 
     $('.picture-slider__control').bxSlider({
         nextSelector: '.picture-slider__next',
@@ -126,20 +117,20 @@ jQuery(document).ready(function($) {
 
 }( window, document ) );
 
-function initMainMap() {
-    // Create a map object and specify the DOM element for display.
-    var map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 59.9342802, lng: 30.3350986},
-        zoom: 10
-    });
+// function initMainMap() {
+//     // Create a map object and specify the DOM element for display.
+//     var map = new google.maps.Map(document.getElementById('map'), {
+//         center: {lat: 59.9342802, lng: 30.3350986},
+//         zoom: 10
+//     });
 
-    // Create a marker and set its position.
-    new google.maps.Marker({
-        map: map,
-        position: {lat: 59.9342802, lng: 30.3350986},
-        title: '199106, Санкт-Петербург, ул. Маржелова 29'
-    });
+//     // Create a marker and set its position.
+//     new google.maps.Marker({
+//         map: map,
+//         position: {lat: 59.9342802, lng: 30.3350986},
+//         title: '199106, Санкт-Петербург, ул. Маржелова 29'
+//     });
 
-}
+// }
 
-initMainMap();
+// initMainMap();
