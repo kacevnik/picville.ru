@@ -1,4 +1,6 @@
     <?php
+        defined( 'ABSPATH' ) || exit;
+
         if (defined( 'FW' )){
             $kdv_add_new_main_info  = fw_get_db_settings_option('kdv_add_new_main_info');
 

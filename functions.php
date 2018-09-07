@@ -132,11 +132,14 @@ if (!function_exists('add_scripts')) { // если ф-я уже есть в до
     }
 }
 
-remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
-add_action( 'woocommerce_before_main_content', 'show_main_slider', $priority = 5 );
-add_action( 'woocommerce_sidebar', 'bottom_main_info', $priority = 8);
-add_action( 'woocommerce_sidebar', 'bottom_main_info_end', $priority = 9);
-add_action( 'woocommerce_after_main_content', 'main_custom_content', $priority = 11);
+register_sidebar( array(
+    'name' => 'Главная страница',
+    'id' => 'main-widget',
+    'before_widget' => '<section class="catalog content">',
+    'after_widget' => '</div>',
+    'before_title' => '<h2 class="block-title catalog__title">',
+    'after_title' => '</h2><hr class="hr">'
+) );
 
 function show_main_slider(){
     include 'include/main_slider.php';
@@ -170,4 +173,119 @@ if (!function_exists('add_styles')) { // если ф-я уже есть в до�
     }
 
     add_filter('admin_footer_text', 'change_admin_footer');
+
+//Новый виджет
+    add_action('widgets_init', 'hit_widget_main');
+
+    function hit_widget_main(){
+        register_widget( 'HitWidgetMain' );
+    }
+
+    class HitWidgetMain extends WP_Widget{
+
+        public function __construct(){
+            $args = array(
+                'name' => 'Хиты продаж на Главной',
+                'description' => 'Выводит товары с выбранной меткой на главной'
+            );
+
+            parent::__construct('hit-widget-main', '', $args);
+        }
+
+        public function form($instatce){
+
+            $count = isset($instatce['count']) ? $instatce['count'] : 8;
+            $title = $instatce['title'];
+            $terms = get_terms( array(
+                'taxonomy'      => array( 'product_tag' ), // название таксономии с WP 4.5
+                'orderby'       => 'id', 
+                'order'         => 'ASC',
+                'hide_empty'    => true, 
+                'object_ids'    => null, // 
+                'include'       => array(),
+                'exclude'       => array(), 
+                'exclude_tree'  => array(), 
+                'number'        => '', 
+                'fields'        => 'all', 
+                'count'         => false,
+                'slug'          => '', 
+                'parent'         => '',
+                'hierarchical'  => true, 
+                'child_of'      => 0, 
+                'get'           => '', // ставим all чтобы получить все термины
+                'name__like'    => '',
+                'pad_counts'    => false, 
+                'offset'        => '', 
+                'search'        => '', 
+                'cache_domain'  => 'core',
+                'name'          => '', // str/arr поле name для получения термина по нему. C 4.2.
+                'childless'     => false, // true не получит (пропустит) термины у которых есть дочерние термины. C 4.2.
+                'update_term_meta_cache' => true, // подгружать метаданные в кэш
+                'meta_query'    => '',
+            ) );
+            ?>
+                <p>
+                    <label for="<?php echo $this->get_field_id('title'); ?>">Заголовок</label>
+                    <input name="<?php echo $this->get_field_name('title'); ?>" id="<?php echo $this->get_field_id('title'); ?>" value="<?php echo $title; ?>" class="widefat">
+                </p>
+                <p>
+                    <label for="<?php echo $this->get_field_id('count'); ?>">Кол-во товаров</label>
+                    <input name="<?php echo $this->get_field_name('count'); ?>" id="<?php echo $this->get_field_id('count'); ?>" value="<?php echo $count; ?>" class="widefat">
+                </p>
+            <?php
+            if(count($terms)){
+                echo '<p>';
+                foreach ($terms as $term) {
+                    ?>
+                        <input type="checkbox" name="<?php echo $this->get_field_name('term'); ?>[]" id="<?php echo $this->get_field_id('term').$term->term_id; ?>" value="<?php echo $term->slug; ?>" <?php if(is_array($instatce['term']) && in_array($term->slug, $instatce['term'])){echo " checked";} ?>><label for="<?php echo $this->get_field_id('term').$term->term_id; ?>"><?php echo $term->name; ?></label><br>
+                    <?php
+                }
+                echo '</p>';
+            }else{
+                echo '<p style="color: #ff0000;">Создайте метку для товаров Woocommerce и присвойте ее товарам, что-бы метка отражалась в настройках данного виджета!</p>';
+            }
+        }
+
+        public function widget($args, $instatce){
+            if(count($instatce['term']) > 0){
+                echo $args['before_widget'];
+                echo $args['before_title'];
+                echo $instatce['title'];
+                echo $args['after_title'];
+
+                        $args = array(
+                            'tag' => $instatce['term'],
+                        );
+                        $products = wc_get_products( $args );
+                        // echo '<pre>';
+                        // print_r($products);
+                        // echo '<pre>';
+                        echo '<div class="catalog__list flex-container">';
+                            foreach ($products as $product) {
+                                ?>
+                                    <div class="product__temp col-3">
+                                        <div class="product__photo">
+                                            <img class="pos-center" src="<?php $url = wp_get_attachment_image_src($product->image_id, 'big-thumb'); echo $url[0]; ?>" alt="<?php echo $product->name; ?>">
+                                        </div><!--product__photo-->
+
+                                        <p class="product__title">
+                                            <?php echo $product->name; ?>
+                                        </p>
+
+                                        <p class="product__desc">
+                                            <?php echo $product->short_description; ?>
+                                        </p>
+
+                                        <p class="product__price">
+                                             <?php echo $product->price; ?><span class="rub">a</span>
+                                        </p>
+
+                                    </div><!--product-->
+                                <?php
+                            }
+                        echo '</div>';
+                echo $args['after_widget'];
+            }
+        }
+    }
 ?>
