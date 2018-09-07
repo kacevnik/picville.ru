@@ -3625,6 +3625,30 @@ button {
     background: #ffffff;
 }
 
+.site-map .menu-item{
+    margin-bottom: 22px;
+}
+
+.site-map .menu-item a{
+    font-family: 'DINProCond', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #ffffff;
+}
+
+.site-map .menu-item a:hover{
+    color: #f94343;
+}
+
+@media (max-width: 650px){
+    .site-map .menu-item{
+        text-align: left;
+    }
+}
+
+
 
 
 

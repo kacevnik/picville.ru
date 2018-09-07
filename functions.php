@@ -1,37 +1,37 @@
 <?php
 
-$item = 'Cool';
 
 add_theme_support( 'woocommerce' );
 
-if (!defined( 'FW' )){
-    function com_version_wp(){
+// if (!defined( 'FW' )){
+//     function com_version_wp(){
 
-        $action = 'install-plugin';
-        $slug = 'unyson';
-        $url = wp_nonce_url(
-            add_query_arg(
-                array(
-                    'action' => $action,
-                    'plugin' => $slug
-                ),
-                admin_url( 'update.php' )
-            ),
-            $action.'_'.$slug
-        );
-        echo    '<div class="notice notice-error">
-                    <p>Внимание! Для правильной работы должен быть установлен и активирован плагин Unyson! <a data-slug="unyson" href="'. $url .'" aria-label="Установить Unyson сейчас" class="install-now button">Установить</a></p>
-                </div>';
-    }
+//         $action = 'install-plugin';
+//         $slug = 'unyson';
+//         $url = wp_nonce_url(
+//             add_query_arg(
+//                 array(
+//                     'action' => $action,
+//                     'plugin' => $slug
+//                 ),
+//                 admin_url( 'update.php' )
+//             ),
+//             $action.'_'.$slug
+//         );
+//         echo    '<div class="notice notice-error">
+//                     <p>Внимание! Для правильной работы должен быть установлен и активирован плагин Unyson! <a data-slug="unyson" href="'. $url .'" aria-label="Установить Unyson сейчас" class="install-now button">Установить</a></p>
+//                 </div>';
+//     }
 
-    add_action('admin_notices', 'com_version_wp');
-}
+//     add_action('admin_notices', 'com_version_wp');
+// }
 
 
 include('settings.php');
 register_nav_menus(array( // Регистрация меню
     'top' => 'Верхнее',
-    'bottom' => 'Внизу'
+    'bottom-1' => 'Нижнее меню №1',
+    'bottom-2' => 'Нижнее меню №2'
 ));
 
 add_theme_support('post-thumbnails'); // Включение миниатюр

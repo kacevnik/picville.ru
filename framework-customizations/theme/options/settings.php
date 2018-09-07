@@ -2,28 +2,56 @@
 
     if (!defined('FW')) die('Forbidden');
 
-    $args_category_list = array(
-        'type'         => 'post',
-        'child_of'     => 0,
-        'parent'       => '',
-        'orderby'      => 'name',
-        'order'        => 'ASC',
-        'hide_empty'   => 1,
+    // $args_category_list = array(
+    //     'type'         => 'post',
+    //     'child_of'     => 0,
+    //     'parent'       => '',
+    //     'orderby'      => 'name',
+    //     'order'        => 'ASC',
+    //     'hide_empty'   => 1,
+    //     'hierarchical' => 1,
+    //     'exclude'      => '',
+    //     'include'      => '',
+    //     'number'       => 0,
+    //     'taxonomy'     => 'category',
+    //     'pad_counts'   => false,
+    // );
+
+    // $res_category_list =  array();
+
+    // $category_list = get_categories( $args_category_list );
+
+    // foreach ($category_list as $category_listt_item) {
+    //     $res_category_list[$category_listt_item->term_id] = $category_listt_item->name;
+    // }
+
+
+    $args_page_list = array(
+        'sort_order'   => 'ASC',
+        'sort_column'  => 'post_title',
         'hierarchical' => 1,
         'exclude'      => '',
         'include'      => '',
-        'number'       => 0,
-        'taxonomy'     => 'category',
-        'pad_counts'   => false,
+        'meta_key'     => '',
+        'meta_value'   => '',
+        'authors'      => '',
+        'child_of'     => 0,
+        'parent'       => -1,
+        'exclude_tree' => '',
+        'number'       => '',
+        'offset'       => 0,
+        'post_type'    => 'page',
+        'post_status'  => 'publish',
     );
 
-    $res_category_list =  array();
+    $res_page_list =  array();
 
-    $category_list = get_categories( $args_category_list );
+    $page_list = get_pages( $args_page_list );
 
-    foreach ($category_list as $category_listt_item) {
-        $res_category_list[$category_listt_item->term_id] = $category_listt_item->name;
+    foreach ($page_list as $page_list_item) {
+        $res_page_list[$page_list_item->ID] = $page_list_item->post_title;
     }
+
 //настройки для страницы настроек темы
     $options = array(
         'kdv_tap_general_opions' => array(
@@ -33,7 +61,7 @@
                     'type'  => 'text',
                     'value' => '+7 (812) 982-15-79',
                     'attr'  => array( 'class' => 'custom-class', 'data-foo' => 'bar' ),
-                    'label' => __('Номер телефона в хедере', '{domain}'),
+                    'label' => __('Номер телефона', '{domain}'),
                     'desc'  => __('Пример: 8 (926) 321-22-23', '{domain}'),
                     'help'  => __('Укажите номер телефона для связи в верхней части сайта', '{domain}'),
                 ),
@@ -70,23 +98,26 @@
                     'extra_mime_types' => array( 'audio/x-aiff, aif aiff' )
                 ),
 
-                'kdv_slogan_1' => array(
+                'kdv_copy_footer' => array(
                     'type'  => 'text',
-                    'value' => 'ДОБРО ПОЖАЛОВАТЬ В ASBIS',
+                    'value' => 'PictureVille © 2018 все права защищены',
                     'attr'  => array( 'class' => 'custom-class', 'data-foo' => 'bar' ),
-                    'label' => __('Слоган №1', '{domain}'),
-                    'desc'  => __('', '{domain}'),
-                    'help'  => __('Слоган на главной страрнице', '{domain}'),
+                    'label' => __('Копирайт в футере', '{domain}'),
                 ),
 
-                'kdv_slogan_2' => array(
-                    'type'  => 'text',
-                    'value' => 'Ознакомтесь с нашими последними курасами',
+                'kdv_select_politic' => array(
+                    'type'  => 'select',
+                    'value' => '',
                     'attr'  => array( 'class' => 'custom-class', 'data-foo' => 'bar' ),
-                    'label' => __('Слоган №2', '{domain}'),
-                    'desc'  => __('', '{domain}'),
-                    'help'  => __('Нижний слоган на главной страрнице', '{domain}'),
-                ),
+                    'label' => __('Политика конфиденциальности', '{domain}'),
+                    'help'  => __('Выбирите страницу для Политики конфиденциальности', '{domain}'),
+                    'choices' => $res_page_list,
+                    /**
+                     * Allow save not existing choices
+                     * Useful when you use the select to populate it dynamically from js
+                     */
+                    'no-validate' => false,
+                )
             ),
             'title' => __('Основные настройки', '{domain}'),
             'attr' => array('class' => 'custom-class', 'data-foo' => 'bar'),

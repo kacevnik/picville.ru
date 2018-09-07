@@ -20,11 +20,11 @@
                         <p class="main-slider__desc">
                             <?php echo $slider_item['option_2']; ?>
                         </p>
-
+                        <?php if($slider_item['option_5'] && $slider_item['option_4']){ ?>
                         <a href="<?php echo $slider_item['option_5']; ?>" class="red-btn main-slider__link">
                             <?php echo $slider_item['option_4']; ?>
                         </a>
-
+                        <?php } ?>
                     </div><!--main-slide__left-->
 
                 </div><!--content-->

@@ -2,7 +2,6 @@
     if (defined( 'FW' )){
         $kdv_phone_header  = fw_get_db_settings_option('kdv_phone_header');
         $kdv_logo_header   = fw_get_db_settings_option('kdv_logo');
-        $kdv_price         = fw_get_db_settings_option('kdv_price');
         $replace = str_replace(array(' ', '(', ')', '-'), "", $kdv_phone_header);
     }
 ?>
