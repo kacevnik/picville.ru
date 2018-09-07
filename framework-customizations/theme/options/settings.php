@@ -140,42 +140,115 @@
                         ),
 
                         'icon' => array(
-                        'type'  => 'icon-v2',
+                            'type'  => 'icon-v2',
 
-                        /**
-                         * small | medium | large | sauron
-                         * Yes, sauron. Definitely try it. Great one.
-                         */
-                        'preview_size' => 'medium',
+                            /**
+                             * small | medium | large | sauron
+                             * Yes, sauron. Definitely try it. Great one.
+                             */
+                            'preview_size' => 'medium',
 
-                        /**
-                         * small | medium | large
-                         */
-                        'modal_size' => 'medium',
+                            /**
+                             * small | medium | large
+                             */
+                            'modal_size' => 'medium',
 
-                        /**
-                         * There's no point in configuring value from code here.
-                         *
-                         * I'll document the result you get in the frontend here:
-                         * 'value' => array(
-                         *   'type' => 'icon-font', // icon-font | custom-upload
-                         *
-                         *   // ONLY IF icon-font
-                         *   'icon-class' => '',
-                         *   'icon-class-without-root' => false,
-                         *   'pack-name' => false,
-                         *   'pack-css-uri' => false
-                         *
-                         *   // ONLY IF custom-upload
-                         *   // 'attachment-id' => false,
-                         *   // 'url' => false
-                         * ),
-                         */
+                            /**
+                             * There's no point in configuring value from code here.
+                             *
+                             * I'll document the result you get in the frontend here:
+                             * 'value' => array(
+                             *   'type' => 'icon-font', // icon-font | custom-upload
+                             *
+                             *   // ONLY IF icon-font
+                             *   'icon-class' => '',
+                             *   'icon-class-without-root' => false,
+                             *   'pack-name' => false,
+                             *   'pack-css-uri' => false
+                             *
+                             *   // ONLY IF custom-upload
+                             *   // 'attachment-id' => false,
+                             *   // 'url' => false
+                             * ),
+                             */
 
-                        'attr'  => array( 'class' => 'custom-class', 'data-foo' => 'bar' ),
-                        'label' => __('Иконка', '{domain}'),
+                            'attr'  => array( 'class' => 'custom-class', 'data-foo' => 'bar' ),
+                            'label' => __('Иконка', '{domain}'),
+                        )
                     )
-                    ),
+                ),
+
+                'kdv_add_new_main_info' => array(
+                    'type' => 'addable-popup',
+                    'label' => __('Инфо элементы (Main)', '{domain}'),
+                    'desc'  => __('', '{domain}'),
+                    'template' => '{{- title}}',
+                    'help'  => __('Добавьте элементы для отображения в блоке на главной', '{domain}'),
+                    'popup-title' => null,
+                    'size' => 'large', // small, medium, large
+                    'limit' => 0, // limit the number of popup`s that can be added
+                    'add-button-text' => __('Добавить элемент', '{domain}'),
+                    'sortable' => true,
+                    'popup-options' => array(
+                        'img' => array(
+                            'type'  => 'upload',
+                            'value' => array(
+                                /*
+                                'attachment_id' => '9',
+                                'url' => '//site.com/wp-content/uploads/2014/02/whatever.jpg'
+                                */
+                                // if value is set in code, it is not considered and not used
+                                // because there is no sense to set hardcode attachment_id
+                            ),
+                            'attr'  => array( 'class' => 'custom-class', 'data-foo' => 'bar' ),
+                            'label' => __('Изображение', '{domain}'),
+                            'desc'  => __('', '{domain}'),
+                            /**
+                             * If set to `true`, the option will allow to upload only images, and display a thumb of the selected one.
+                             * If set to `false`, the option will allow to upload any file from the media library.
+                             */
+                            'images_only' => true,
+                            /**
+                             * An array with allowed files extensions what will filter the media library and the upload files.
+                             */
+                            'files_ext' => array( 'jpg', 'png', 'gif' ),
+                            /**
+                             * An array with extra mime types that is not in the default array with mime types from the javascript Plupload library.
+                             * The format is: array( '<mime-type>, <ext1> <ext2> <ext2>' ).
+                             * For example: you set rar format to filter, but the filter ignore it , than you must set
+                             * the array with the next structure array( '.rar, rar' ) and it will solve the problem.
+                             */
+                            'extra_mime_types' => array( 'audio/x-aiff, aif aiff' )
+                        ),
+
+                        'title' => array(
+                            'label' => __('Заголовок', '{domain}'),
+                            'type' => 'text',
+                            'value' => '',
+                            'desc' => __('', '{domain}'),
+                        ),
+
+                        'body' => array(
+                            'type'  => 'textarea',
+                            'value' => '',
+                            'attr'  => array( 'class' => 'custom-class', 'data-foo' => 'bar' ),
+                            'label' => __('Текст слайдера', '{domain}'),
+                        ),
+
+                        'link_text' => array(
+                            'label' => __('Текст ссылки', '{domain}'),
+                            'type' => 'text',
+                            'value' => 'Перейти в каталог',
+                            'desc' => __('', '{domain}'),
+                        ),
+
+                        'link' => array(
+                            'label' => __('URL Ссылки', '{domain}'),
+                            'type' => 'text',
+                            'value' => '',
+                            'desc' => __('', '{domain}'),
+                        )
+                    )
                 )
             ),
             'title' => __('Основные настройки', '{domain}'),

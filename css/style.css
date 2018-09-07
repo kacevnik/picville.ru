@@ -3652,11 +3652,16 @@ button {
     text-align: left;
 }
 
-.advantage__icon-wrap, .advantage__icon-wrap .dashicons{
+.advantage__icon-wrap{
     font-size: 60px;
     text-align: center;
 }
 
+.advantage__icon-wrap .dashicons{
+    font-size: 60px;
+    width: 60px;
+    height: 60px;
+}
 
 
 

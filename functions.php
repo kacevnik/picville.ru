@@ -36,7 +36,7 @@ register_nav_menus(array( // Регистрация меню
 
 add_theme_support('post-thumbnails'); // Включение миниатюр
 set_post_thumbnail_size(250, 150); // Размер миниатюр 250x150
-add_image_size('big-thumb', 400, 400, true); // Ещё один размер миниатюры
+add_image_size('big-thumb', 570, 570, true); // Ещё один размер миниатюры
 
 register_sidebar(array(
     'name' => 'Колонка слева', // Название сайдбара
@@ -136,6 +136,7 @@ remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
 add_action( 'woocommerce_before_main_content', 'show_main_slider', $priority = 5 );
 add_action( 'woocommerce_sidebar', 'bottom_main_info', $priority = 8);
 add_action( 'woocommerce_sidebar', 'bottom_main_info_end', $priority = 9);
+add_action( 'woocommerce_after_main_content', 'main_custom_content', $priority = 11);
 
 function show_main_slider(){
     include 'include/main_slider.php';
@@ -147,6 +148,10 @@ function bottom_main_info(){
 
 function bottom_main_info_end(){
     include 'include/main_bottom_info_end.php';
+}
+
+function main_custom_content(){
+    include 'include/main_custom_content.php';
 }
 
 add_action('wp_print_styles', 'add_styles'); // приклеем ф-ю на добавление стилей в хедер
