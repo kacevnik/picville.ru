@@ -2,7 +2,7 @@
         if (defined( 'FW' )){
             $kdv_slider_off  = fw_get_db_settings_option('kdv_slider_off');
 
-            if($kdv_slider_off){
+            if(count($kdv_slider_off) > 0){
                 $kdv_add_new_main_slide = fw_get_db_settings_option('kdv_add_new_main_slide');
     ?>
     <section class="main-slider">

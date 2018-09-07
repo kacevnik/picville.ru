@@ -429,7 +429,7 @@ button {
     position: absolute;
     width: 24px;
     height: 24px;
-    line-height: 20px;
+    line-height: 24px;
     text-align: center;
     border: 2px solid #ffffff;
     background: #f94343;
@@ -3646,6 +3646,15 @@ button {
     .site-map .menu-item{
         text-align: left;
     }
+}
+
+.info .page-title{
+    text-align: left;
+}
+
+.advantage__icon-wrap, .advantage__icon-wrap .dashicons{
+    font-size: 60px;
+    text-align: center;
 }
 
 

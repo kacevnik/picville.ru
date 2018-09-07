@@ -117,6 +117,65 @@
                      * Useful when you use the select to populate it dynamically from js
                      */
                     'no-validate' => false,
+                ),
+
+                'kdv_add_new_bottom_info' => array(
+                    'type' => 'addable-popup',
+                    'label' => __('Инфо элементы (Footer)', '{domain}'),
+                    'desc'  => __('', '{domain}'),
+                    'template' => '{{- name}}',
+                    'help'  => __('Добавьте элементы для отображения перед Футером', '{domain}'),
+                    'popup-title' => null,
+                    'size' => 'large', // small, medium, large
+                    'limit' => 0, // limit the number of popup`s that can be added
+                    'add-button-text' => __('Добавить элемент', '{domain}'),
+                    'sortable' => true,
+                    'popup-options' => array(
+
+                        'name' => array(
+                            'label' => __('Заголовок', '{domain}'),
+                            'type' => 'text',
+                            'value' => '',
+                            'desc' => __('', '{domain}'),
+                        ),
+
+                        'icon' => array(
+                        'type'  => 'icon-v2',
+
+                        /**
+                         * small | medium | large | sauron
+                         * Yes, sauron. Definitely try it. Great one.
+                         */
+                        'preview_size' => 'medium',
+
+                        /**
+                         * small | medium | large
+                         */
+                        'modal_size' => 'medium',
+
+                        /**
+                         * There's no point in configuring value from code here.
+                         *
+                         * I'll document the result you get in the frontend here:
+                         * 'value' => array(
+                         *   'type' => 'icon-font', // icon-font | custom-upload
+                         *
+                         *   // ONLY IF icon-font
+                         *   'icon-class' => '',
+                         *   'icon-class-without-root' => false,
+                         *   'pack-name' => false,
+                         *   'pack-css-uri' => false
+                         *
+                         *   // ONLY IF custom-upload
+                         *   // 'attachment-id' => false,
+                         *   // 'url' => false
+                         * ),
+                         */
+
+                        'attr'  => array( 'class' => 'custom-class', 'data-foo' => 'bar' ),
+                        'label' => __('Иконка', '{domain}'),
+                    )
+                    ),
                 )
             ),
             'title' => __('Основные настройки', '{domain}'),

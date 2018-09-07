@@ -132,10 +132,21 @@ if (!function_exists('add_scripts')) { // если ф-я уже есть в до
     }
 }
 
+remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
 add_action( 'woocommerce_before_main_content', 'show_main_slider', $priority = 5 );
+add_action( 'woocommerce_sidebar', 'bottom_main_info', $priority = 8);
+add_action( 'woocommerce_sidebar', 'bottom_main_info_end', $priority = 9);
 
 function show_main_slider(){
     include 'include/main_slider.php';
+}
+
+function bottom_main_info(){
+    include 'include/main_bottom_info.php';
+}
+
+function bottom_main_info_end(){
+    include 'include/main_bottom_info_end.php';
 }
 
 add_action('wp_print_styles', 'add_styles'); // приклеем ф-ю на добавление стилей в хедер
@@ -143,6 +154,7 @@ if (!function_exists('add_styles')) { // если ф-я уже есть в до�
     function add_styles() { // добавление стилей
         if(is_admin()) return false; // если мы в админке - ничего не делаем
         wp_enqueue_style( 'owl', get_template_directory_uri().'/css/owl.carousel.min.css' ); 
+        wp_enqueue_style( 'awesome', get_template_directory_uri().'/css/font-awesome.min.css' ); 
         wp_enqueue_style( 'reset', get_template_directory_uri().'/css/reset.css' ); // основные стили шаблона
         wp_enqueue_style( 'mainstyle', get_template_directory_uri().'/css/style.css' ); // основные стили шаблона
     }

@@ -65,7 +65,7 @@ jQuery(document).ready(function($) {
 {
     'use strict';
 
-    var file     = 'svg-sprite.html',
+    var file     = 'http://picville.ru/wp-content/themes/picville/images/svg-sprite.html',
         revision = 1;
 
     if( !document.createElementNS || !document.createElementNS( 'http://www.w3.org/2000/svg', 'svg' ).createSVGRect )

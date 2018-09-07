@@ -5,7 +5,6 @@
         $kdv_select_politic  = fw_get_db_settings_option('kdv_select_politic');
         $replace = str_replace(array(' ', '(', ')', '-'), "", $kdv_phone_header);
 
-        print_r($kdv_select_politic);
     }
 ?>
     <footer class="footer">
