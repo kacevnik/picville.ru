@@ -30,9 +30,9 @@ if ( ! empty( $breadcrumb ) ) {
 		echo $before;
 
 		if ( ! empty( $crumb[1] ) && sizeof( $breadcrumb ) !== $key + 1 ) {
-			echo '<a href="' . esc_url( $crumb[1] ) . '">' . esc_html( $crumb[0] ) . '</a>';
+			echo '<a href="' . esc_url( $crumb[1] ) . '" class="pages__link">' . esc_html( $crumb[0] ) . '</a>';
 		} else {
-			echo esc_html( $crumb[0] );
+			echo '<span class="pages__active">'  . esc_html( $crumb[0] ) . '</span>';
 		}
 
 		echo $after;

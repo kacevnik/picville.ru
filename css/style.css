@@ -857,6 +857,7 @@ button {
 }
 .pages__colon {
     color: #ababab;
+    padding: 0 5px;
 }
 .pages__active {
     color: #000000;
@@ -3663,7 +3664,98 @@ button {
     height: 60px;
 }
 
+.woocommerce .woocommerce-widget-layered-nav-list{
+    margin-top: 15px;
+}
 
+.woocommerce .woocommerce-widget-layered-nav-list .woocommerce-widget-layered-nav-list__item{
+    display: block;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 9px;
+}
+
+.woocommerce-widget-layered-nav-list__item:before{
+    content: "";
+    width: 7px;
+    height: 7px;
+    position: absolute;
+    left: 0;
+    top: 3px;
+    border: 2px solid #d8d8d8;
+    background: #ffffff;
+}
+
+.woocommerce .woocommerce-widget-layered-nav-list .woocommerce-widget-layered-nav-list__item a{
+    color: #000000;
+    font-size: 14px;
+    text-decoration: none;
+    line-height: 1.4;
+}
+
+.woocommerce .woocommerce-widget-layered-nav-list .woocommerce-widget-layered-nav-list__item a:hover{
+    color: #f94343;
+    text-decoration: none;
+}
+
+.woocommerce .woocommerce-widget-layered-nav-list .woocommerce-widget-layered-nav-list__item span{
+    display: none;
+}
+
+.woocommerce .woocommerce-widget-layered-nav-list .woocommerce-widget-layered-nav-list__item--chosen a::before{
+    display: none;
+}
+
+.woocommerce-widget-layered-nav-list__item--chosen:before{
+    background: #f94343;
+    border-color: #f94343;
+}
+
+.pager ul li{
+    float: left;
+    margin-right: 10px;
+}
+
+.pager ul li:last-child{
+    margin-right: 0;
+}
+
+.pager ul li a{
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+    color: #000000;
+    text-transform: uppercase;
+    font-family: 'DINProCond', sans-serif;
+    text-decoration: none;
+    padding: 7px;
+    line-height: 82px;
+}
+
+.pager ul li a:hover{
+    text-decoration: none;
+    color: #f94343;
+}
+
+.page-numbers.current{
+    color: #ffffff;
+    background: url(../images/decor/small-bg.png) no-repeat center center;
+    width: 57px;
+    height: 84px;
+    line-height: 82px;
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: 'DINProCond', sans-serif;
+    display: inline-block;
+}
+
+.page-numbers.dots{
+    line-height: 87px;
+}
 
 
 

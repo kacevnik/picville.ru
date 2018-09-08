@@ -28,7 +28,7 @@ if ( $total <= 1 ) {
 	return;
 }
 ?>
-<nav class="woocommerce-pagination">
+<nav class="pager">
 	<?php
 		echo paginate_links( apply_filters( 'woocommerce_pagination_args', array( // WPCS: XSS ok.
 			'base'         => $base,
@@ -36,10 +36,10 @@ if ( $total <= 1 ) {
 			'add_args'     => false,
 			'current'      => max( 1, $current ),
 			'total'        => $total,
-			'prev_text'    => '&larr;',
-			'next_text'    => '&rarr;',
+			'prev_text'    => 'Назад',
+			'next_text'    => 'Вперед',
 			'type'         => 'list',
-			'end_size'     => 3,
+			'end_size'     => 1,
 			'mid_size'     => 3,
 		) ) );
 	?>

@@ -23,6 +23,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $product;
 ?>
 
-<?php if ( $price_html = $product->get_price_html() ) : ?>
-	<span class="price"><?php echo $price_html; ?></span>
-<?php endif; ?>
+<p class="product__price">
+    <?php echo $product->price; ?> <span class="rub">a</span>
+<?php if($product->regular_price){ ?>
+    <span class="product__price-old">
+        <i class="strike"><?php echo $product->regular_price; ?></i> <span class="rub">a</span>
+    </span>
+<?php } ?>
+</p>

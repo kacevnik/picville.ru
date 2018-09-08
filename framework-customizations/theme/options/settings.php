@@ -249,6 +249,12 @@
                             'desc' => __('', '{domain}'),
                         )
                     )
+                ),
+                'count_woo_loop_product' => array(
+                    'label' => __('Количество товаров', '{domain}'),
+                    'type' => 'text',
+                    'value' => '9',
+                    'desc' => __('Количество товаров отображаемых на странице для плагина Woocommerce', '{domain}'),
                 )
             ),
             'title' => __('Основные настройки', '{domain}'),

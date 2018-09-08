@@ -20,6 +20,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-get_sidebar( 'shop' );
+?>
+    <section class="catalog-wr content flex-container">
+        <aside class="aside col-3">
+            <div class="filter">
+                <div class="filter__center">
+<?php
 
-/* Omit closing PHP tag at the end of PHP files to avoid "headers already sent" issues. */
+dynamic_sidebar( 'shop' );
+
+?>
+
+                </div><!--filter__center-->
+
+            </div><!--filter-->
+
+        </aside>
