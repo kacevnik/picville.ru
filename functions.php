@@ -134,9 +134,10 @@ if (!function_exists('add_scripts')) { // если ф-я уже есть в до
 
 register_sidebar( array(
     'name' => 'Главная страница',
+    'description' => 'Вывод виджетов для главной',
     'id' => 'main-widget',
     'before_widget' => '<section class="catalog content">',
-    'after_widget' => '</div>',
+    'after_widget' => '</section>',
     'before_title' => '<h2 class="block-title catalog__title">',
     'after_title' => '</h2><hr class="hr">'
 ) );
@@ -248,18 +249,19 @@ if (!function_exists('add_styles')) { // если ф-я уже есть в до�
 
         public function widget($args, $instatce){
             if(count($instatce['term']) > 0){
-                echo $args['before_widget'];
+                echo '<section class="catalog content">';
                 echo $args['before_title'];
                 echo $instatce['title'];
                 echo $args['after_title'];
 
                         $args = array(
                             'tag' => $instatce['term'],
+                            'limit' => $instatce['count']
                         );
                         $products = wc_get_products( $args );
                         // echo '<pre>';
-                        // print_r($products);
-                        // echo '<pre>';
+                        // print_r($sale);
+                        // echo '</pre>';
                         echo '<div class="catalog__list flex-container">';
                             foreach ($products as $product) {
                                 ?>
@@ -284,8 +286,92 @@ if (!function_exists('add_styles')) { // если ф-я уже есть в до�
                                 <?php
                             }
                         echo '</div>';
-                echo $args['after_widget'];
+                echo '</section>';
             }
+        }
+    }
+
+//Новый виджет
+    add_action('widgets_init', 'sale_widget_main');
+
+    function sale_widget_main(){
+        register_widget( 'SaleWidgetMain' );
+    }
+
+    class SaleWidgetMain extends WP_Widget{
+
+        public function __construct(){
+            $args = array(
+                'name' => 'Товары по акции на главной',
+                'description' => 'Выводит продукты по акции на главной'
+            );
+
+            parent::__construct('sale-widget-main', '', $args);
+        }
+
+        public function form($instatce){
+
+            $count = isset($instatce['count']) ? $instatce['count'] : 4;
+            $title = $instatce['title'];
+            ?>
+                <p>
+                    <label for="<?php echo $this->get_field_id('title'); ?>">Заголовок</label>
+                    <input name="<?php echo $this->get_field_name('title'); ?>" id="<?php echo $this->get_field_id('title'); ?>" value="<?php echo $title; ?>" class="widefat">
+                </p>
+                <p>
+                    <label for="<?php echo $this->get_field_id('count'); ?>">Кол-во товаров</label>
+                    <input name="<?php echo $this->get_field_name('count'); ?>" id="<?php echo $this->get_field_id('count'); ?>" value="<?php echo $count; ?>" class="widefat">
+                </p>
+            <?php
+        }
+
+        public function widget($args, $instatce){
+            echo '<section class="catalog content">';
+            echo $args['before_title'];
+            echo $instatce['title'];
+            echo $args['after_title'];
+                $sales = wc_get_product_ids_on_sale();
+                // echo '<pre>';
+                // print_r($sale);
+                // echo '</pre>';
+                    echo '<div class="catalog__list flex-container">';
+                    $count_sale = 0;
+                        foreach ($sales as $sale) {
+                            $product = wc_get_product($sale);
+                            if($count_sale == $instatce['count']){break;}
+                            $s1 = $product->price;
+                            $s2 = $product->regular_price;
+                            $s3 = round(($s2 - $s1) / ($s2/100));
+                            //print_r($s3);
+                            ?>
+
+                                <div class="product col-3">
+                                    <div class="product__photo">
+                                        <img class="pos-center" src="<?php $url = wp_get_attachment_image_src($product->image_id, 'big-thumb'); echo $url[0]; ?>" alt="<?php echo $product->name; ?>">
+                                        <span class="product__discount">-<?php echo $s3; ?>%</span>
+                                    </div><!--product__photo-->
+
+                                    <p class="product__title">
+                                        <?php echo $product->name; ?>
+                                    </p>
+
+                                    <p class="product__desc">
+                                        <?php echo $product->short_description; ?>
+                                    </p>
+
+                                    <p class="product__price">
+                                        <?php echo $product->price; ?> <span class="rub">a</span>
+                                        <span class="product__price-old">
+                                            <i class="strike"><?php echo $product->regular_price; ?></i> <span class="rub">a</span>
+                                        </span>
+                                    </p>
+
+                                </div><!--product-->
+                            <?php
+                            $count_sale++;
+                        }
+                    echo '</div>';
+            echo '</section>';
         }
     }
 ?>
