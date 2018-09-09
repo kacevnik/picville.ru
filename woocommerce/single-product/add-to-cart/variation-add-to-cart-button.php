@@ -27,6 +27,7 @@ global $product;
 	?>
 
 	<button type="submit" class="single_add_to_cart_button button alt"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
+	<a href="#" class="picture__buy-click">купить в 1 клик</a>
 
 	<?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
 

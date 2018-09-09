@@ -1,13 +1,5 @@
 jQuery(document).ready(function ($) {
-    /*
-    * Иницилизация OWL карусели, если нужно разкомментировать!
-    * Сайт документации https://owlcarousel2.github.io/OwlCarousel2/docs/api-options.html
-    */
-    $(".main-slider__slides").owlCarousel({
-        items: 1,
-        loop: true,
-        nav: false
-    });
+    $('.price_single_product').append($('.price').html());
 
     //Плавная прокрутка до заданного ID элемента
     $("a[href*='#']").bind("click", function(e){

@@ -1412,6 +1412,20 @@ button {
 /*picture__about*/
 .picture__about {
     padding-top: 45px;
+    width: 100%;
+}
+
+.picture__about a{
+    font-size: 15px;
+    color: #f94343;
+}
+
+.picture__about h2{
+    font-weight: 500;
+    text-transform: uppercase;
+    font-family: 'DINProCond', sans-serif;
+    line-height: 1.2;
+    font-size: 30px;
 }
 .picture__about ul {
     margin-top: 19px;
@@ -3756,6 +3770,170 @@ button {
 .page-numbers.dots{
     line-height: 87px;
 }
+
+.filter__block .product-categories{
+    margin-top: 15px;
+}
+
+.filter__block .product-categories li{
+    display: block;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 9px;
+}
+
+.filter__block .product-categories li a{
+    color: #000000;
+    font-size: 14px;
+    text-decoration: none;
+    line-height: 1.4;
+}
+
+.filter__block .product-categories li a:hover{
+    text-decoration: none;
+    color: #f94343;
+}
+
+.flex-control-thumbs{
+    margin-top: 12px;
+    overflow: hidden;
+}
+
+.flex-control-thumbs li{
+    display: block;
+    float: left;
+    width: 23.5%;
+    margin-right: 2%;
+    margin-bottom: 12px;
+}
+
+.flex-control-thumbs li:nth-child(4n){
+    margin-right: 0;
+}
+
+.flex-control-thumbs li img{
+    width: 100%;
+}
+
+.variations tr{
+    width: 100%;
+    max-width: 310px;
+    margin-bottom: 19px;
+}
+
+.variations td.label{
+    display: block;
+    width: 310px;
+    font-family: 'DINProCond', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #000000;
+    text-transform: uppercase;
+    line-height: 1.2;
+    margin-bottom: 7px;
+}
+
+.variations td.value select{
+    border: 2px solid #d8d8d8;
+    background: #ffffff;
+    border-radius: 0px;
+    width: 100%;
+    padding: 0 30px 0 15px;
+    height: 36px;
+    line-height: 36px;
+    margin-bottom: 19px;
+}
+
+.variations td.value select:hover{
+    border: 2px solid #f94343;
+}
+
+.woocommerce-variation-price .woocommerce-Price-amount{
+    font-size: 36px;
+    font-weight: 700;
+    padding-left: 12px;
+    padding-top: 9px;
+    margin-bottom: 31px;
+}
+
+.quantity{
+    margin-top: 30px;
+}
+
+.quantity .qty{
+    display: none;
+}
+
+.woocommerce .button.alt.single_add_to_cart_button{
+    background: url(../images/decor/btn-bg.png) no-repeat;
+    width: 265px;
+    height: 71px;
+    text-align: center;
+    line-height: 60px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    color: #ffffff;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    padding-right: 6px;
+    margin-right: 25px;
+}
+
+.woocommerce .button.alt.single_add_to_cart_button:hover{
+    background-color: transparent;
+}
+
+
+.related.products{
+    max-width: 1140px;
+}
+
+.related.products .product__photo{
+    height: 291px;
+}
+
+.related.products .product__link{
+    bottom: 70px;
+}
+
+.related.products h2{
+    font-size: 30px;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-family: 'DINProCond', sans-serif;
+    line-height: 1.2;
+}
+
+
+.woocommerce-product-gallery__image img{
+    width: 100%;
+}
+
+.price_single_product{
+    font-size: 36px;
+    font-weight: 700;
+    padding-left: 12px;
+    padding-top: 9px;
+    margin-bottom: 31px;
+}
+
+.price_single_product ins{
+    text-decoration: none;
+    float: left;
+    margin-right: 20px;
+}
+
+.price_single_product del{
+    font-size: 18px;
+    color: #7e7e7e;
+    font-weight: 400;
+    text-decoration: line-through;
+}
+
+
 
 
 

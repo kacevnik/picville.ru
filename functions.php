@@ -3,6 +3,14 @@
 
 add_theme_support( 'woocommerce' );
 
+
+add_action( 'after_setup_theme', 'woocommerce_support' );
+function woocommerce_support() {
+    add_theme_support( 'woocommerce' );
+    add_theme_support( 'wc-product-gallery-lightbox' );
+    add_theme_support( 'wc-product-gallery-slider' );
+}
+
 // if (!defined( 'FW' )){
 //     function com_version_wp(){
 
@@ -165,11 +173,41 @@ remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_p
 remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', $priority = 5 );
 remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', $priority = 10 );
 remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', $priority = 10 );
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', $priority = 5 );
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', $priority = 20 );
+remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', $priority = 10 );
 add_action( 'woocommerce_before_shop_loop_item_title', 'custom_after_img', $priority = 9 );
 add_action( 'woocommerce_before_shop_loop_item_title', 'custom_before_img', $priority = 11 );
 add_action( 'woocommerce_before_shop_loop_item_title', 'custom_product_sale_flash', $priority = 12 );
 add_action( 'woocommerce_after_shop_loop_item_title', 'custom_short_disc', $priority = 7 );
 add_action( 'woocommerce_after_shop_loop_item', 'custom_product_loop_link', $priority = 12 );
+add_action( 'woocommerce_before_single_product_summary', 'woocommerce_template_single_title', $priority = 5 );
+add_action( 'woocommerce_before_single_product_summary', 'custom_before_info_product', $priority = 6 );
+add_action( 'woocommerce_single_product_summary', 'custom_after_info_product', $priority = 65 );
+add_action( 'woocommerce_before_single_product_summary', 'custom_after_images_product', $priority = 25 );
+add_action( 'woocommerce_after_single_product_summary', 'custom_before_tabs_product', $priority = 5 );
+add_action( 'woocommerce_after_single_product_summary', 'custom_after_tabs_product', $priority = 15 );
+add_action( 'woocommerce_after_single_product_summary', 'custom_main_description_product', $priority = 11 );
+
+function custom_main_description_product(){
+    the_content();
+}
+
+function custom_before_tabs_product(){
+    echo '<div class="picture__about">';
+}
+
+function custom_after_tabs_product(){
+    echo '</div>';
+}
+
+function custom_after_images_product(){
+    echo '</div>';
+}
+
+function custom_before_info_product(){
+    echo '<div class="picture__content spacer"><div class="picture-slider">';
+}
 
 function custom_product_sale_flash(){
     include 'include/sale_flash.php';
@@ -217,6 +255,27 @@ function woocommerce_output_content_wrapper() {
 
 function woocommerce_output_content_wrapper_end() {
     echo '</div></section>';
+}
+
+function wc_get_gallery_image_html_custom( $attachment_id, $main_image = false ) {
+    $flexslider        = (bool) apply_filters( 'woocommerce_single_product_flexslider_enabled', get_theme_support( 'wc-product-gallery-slider' ) );
+    $gallery_thumbnail = wc_get_image_size( 'gallery_thumbnail' );
+    $thumbnail_size    = apply_filters( 'woocommerce_gallery_thumbnail_size', array( $gallery_thumbnail['width'], $gallery_thumbnail['height'] ) );
+    $image_size        = apply_filters( 'woocommerce_gallery_image_size', $flexslider || $main_image ? 'big-thumb' : $thumbnail_size );
+    $full_size         = apply_filters( 'woocommerce_gallery_full_size', apply_filters( 'woocommerce_product_thumbnails_large_size', 'full' ) );
+    $thumbnail_src     = wp_get_attachment_image_src( $attachment_id, $thumbnail_size );
+    $full_src          = wp_get_attachment_image_src( $attachment_id, $full_size );
+    $image             = wp_get_attachment_image( $attachment_id, $image_size, false, array(
+        'title'                   => get_post_field( 'post_title', $attachment_id ),
+        'data-caption'            => get_post_field( 'post_excerpt', $attachment_id ),
+        'data-src'                => $full_src[0],
+        'data-large_image'        => $full_src[0],
+        'data-large_image_width'  => $full_src[1],
+        'data-large_image_height' => $full_src[2],
+        'class'                   => $main_image ? 'wp-post-image' : '',
+    ) );
+
+    return '<div data-thumb="' . esc_url( $thumbnail_src[0] ) . '" class="woocommerce-product-gallery__image"><a href="' . esc_url( $full_src[0] ) . '">' . $image . '</a></div>';
 }
 
 function woocommerce_breadcrumb( $args = array() ) {

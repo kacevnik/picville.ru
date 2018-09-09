@@ -22,10 +22,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $post, $product;
 
+$s1 = $product->price;
+$s2 = $product->regular_price;
+$s3 = round(($s2 - $s1) / ($s2/100));
+
 ?>
 <?php if ( $product->is_on_sale() ) : ?>
 
-	<?php echo apply_filters( 'woocommerce_sale_flash', '<span class="onsale">' . esc_html__( 'Sale!', 'woocommerce' ) . '</span>', $post, $product ); ?>
+	<?php echo apply_filters( 'woocommerce_sale_flash', '<span class="product__discount">-'.$s3.'%</span>', $post, $product ); ?>
 
 <?php endif;
 
