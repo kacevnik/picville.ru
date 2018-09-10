@@ -45,6 +45,7 @@ register_nav_menus(array( // Регистрация меню
 add_theme_support('post-thumbnails'); // Включение миниатюр
 set_post_thumbnail_size(250, 150); // Размер миниатюр 250x150
 add_image_size('big-thumb', 570, 570, true); // Ещё один размер миниатюры
+add_image_size('category-thumb', 360, 360, true); // Ещё один размер миниатюры
 
 register_sidebar(array(
     'name' => 'Колонка слева', // Название сайдбара
@@ -922,5 +923,32 @@ class Kama_Breadcrumbs {
  * 1.8 - FIX: заметки, когда в рубрике нет записей
  * 1.7 - Улучшена работа с приоритетными таксономиями.
  */
+
+add_filter('add_to_cart_fragments', 'header_add_to_cart_fragment');
+add_filter('add_to_cart_fragments', 'header_add_to_cart_fragment_2');
+
+function header_add_to_cart_fragment( $fragments ) {
+    global $woocommerce;
+    ob_start();
+    ?>
+    <i class="basket_count_fun"><?php echo sprintf($woocommerce->cart->cart_contents_count); ?></i>
+    <?php
+    $fragments['.basket_count_fun'] = ob_get_clean();
+    return $fragments;
+}
+
+function header_add_to_cart_fragment_2( $fragments ) {
+    global $woocommerce;
+    ob_start();
+    ?>
+    <span class="basket__sum"><?php echo $woocommerce->cart->get_cart_total(); ?></span>
+    <?php
+    $fragments['.basket__sum'] = ob_get_clean();
+    return $fragments;
+}
+
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
+
+add_action( 'woocommerce_single_product_summary', 'woocommerce_template_loop_add_to_cart', 30 );
 
 ?>

@@ -31,15 +31,17 @@
             <button class="black-btn callback">Обратный звонок</button>
 
             <div class="basket">
+                <?php global $woocommerce; ?>
+                <a href="<?php echo $woocommerce->cart->get_cart_url() ?>">
                 <span class="basket__count">
                     <svg class="icon icon-basket"><use xlink:href="#icon-basket"></use></svg>
-                    <i>3</i>
+                    <i class="basket_count_fun"><?php echo sprintf($woocommerce->cart->cart_contents_count); ?></i>
                 </span>
 
                 <span class="basket__sum">
-                    23 000 руб.
+                    <?php echo $woocommerce->cart->get_cart_total(); ?>
                 </span>
-
+                </a>
             </div><!--basket-->
 
         </div><!--header__right-->

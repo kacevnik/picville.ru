@@ -9,6 +9,8 @@ jQuery(document).ready(function ($) {
         nav: false
     });
 
+    $('.variations_form').prev('.price').hide();
+
     //Плавная прокрутка до заданного ID элемента
     $("a[href*='#']").bind("click", function(e){
         var anchor = $(this);
