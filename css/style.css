@@ -80,6 +80,14 @@
     font-style: normal;
 }
 
+h1{
+    font-size: 40px;
+    text-transform: uppercase;
+    font-family: 'DINProCond', sans-serif;
+    font-weight: 500;
+    color: #000000;
+}
+
 /*common*/
 body, button, textarea, input {
     font-family: 'GothaPro', sans-serif;
@@ -3933,10 +3941,180 @@ button {
     text-decoration: line-through;
 }
 
+.product__title a{
+    text-decoration: none;
+    color: #000000;
+}
+
+.product__title a:hover{
+    color: #f94343;
+}
+
+.content_page_wrap{
+    margin-bottom: -64px;
+    padding: 50px 0;
+}
+
+.content_page_wrap .hr{
+    margin-bottom: 40px;
+}
+
+.product-name a{
+    font-size: 24px;
+    color: #000000;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: 'DINProCond', sans-serif;
+}
+
+.product-name a:hover{
+    color: #f94343;
+}
+
+.product-name .variation{
+    color: #cccccc;
+}
+
+.woocommerce-cart table.cart img{
+    width: 55px;
+    height: 55px;
+}
+
+.woocommerce-cart table.cart thead tr:first-child{
+    text-transform: uppercase;
+    font-family: 'DINProCond', sans-serif;
+    font-size: 20px;
+}
+
+.woocommerce a.remove {
+    display: block;
+    font-size: 17px;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    line-height: 23px;
+    border-radius: 50%;
+    color: white!important;
+    text-decoration: none;
+    font-weight: 300;
+    border: 0;
+    background: #ccc;
+}
+
+.cart_totals h2{
+    text-transform: uppercase;
+    font-family: 'DINProCond', sans-serif;
+    font-size: 26px;
+    margin-bottom: 10px;
+}
+
+.woocommerce-cart .wc-proceed-to-checkout a.checkout-button{
+    background: url(../images/decor/btn-bg.png) no-repeat;
+    width: 252px;
+    height: 44px;
+    text-align: center;
+    line-height: 45px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    color: #ffffff;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    padding-right: 6px;
+}
+
+.woocommerce-cart .wc-proceed-to-checkout a.checkout-button:hover{
+    background: url(../images/decor/btn-bg.png) no-repeat;
+}
+
+.woocommerce-cart .wc-proceed-to-checkout{
+    text-align: center;
+}
+
+.product-quantity .quantity .qty{
+    display: block;
+    border: 2px solid #ccc;
+    height: 35px;
+    margin-bottom: 0;
+    font-size: 14px;
+    min-width: 35px;
+}
+
+.product-quantity .quantity{
+    margin: 0;
+}
 
 
+.woocommerce-billing-fields h3{
+    text-transform: uppercase;
+    font-family: 'DINProCond', sans-serif;
+    font-size: 20px;
+}
+
+.woocommerce-billing-fields__field-wrapper input{
+    height: 40px;
+    border: 2px solid #ccc;
+    padding: 5px;
+    font-size: 14px;
+}
+
+.woocommerce-input-wrapper textarea{
+    min-height: 120px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    font-size: 14px;
+}
+
+.woocommerce-checkout h3{
+    text-transform: uppercase;
+    font-family: 'DINProCond', sans-serif;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+#customer_details{
+    margin-bottom: 30px;
+}
 
 
+.woocommerce .checkout button.button.alt{
+    background: url(../images/decor/btn-bg.png) no-repeat;
+    width: 269px;
+    height: 72px;
+    text-align: center;
+    line-height: 45px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    color: #ffffff;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    padding-right: 19px;
+}
+
+.kama_breadcrumbs{
+    text-align: center;
+    background: #f8f8f8;
+    font-size: 11px;
+    text-transform: uppercase;
+    padding-bottom: 9px;
+}
+
+.kama_breadcrumbs a{
+    font-size: 11px;
+    color: #7e7e7e;
+    line-height: 1.2;
+    margin-top: 8px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.kama_breadcrumbs a:hover{
+    color: #f94343;
+    text-decoration: none;
+}
 
 
 
