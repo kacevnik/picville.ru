@@ -1048,9 +1048,7 @@ button {
     display: block;
     margin-bottom: 50px;
 }
-.news-item:last-child {
-    margin-bottom: 0;
-}
+
 .news-item__photo {
     display: block;
     position: relative;
