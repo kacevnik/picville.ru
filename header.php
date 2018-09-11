@@ -27,8 +27,7 @@
                 <svg class="icon icon-phone"><use xlink:href="#icon-phone"></use></svg>
                 <span><?=$kdv_phone_header?></span>
             </a>
-
-            <button class="black-btn callback">Обратный звонок</button>
+            <a data-fancybox data-src="#form_calback" href="javascript:;" class="black-btn callback">Обратный звонок</a>
 
             <div class="basket">
                 <?php global $woocommerce; ?>

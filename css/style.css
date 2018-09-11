@@ -4204,6 +4204,73 @@ button {
     margin-bottom: 120px;
 }
 
+.hidden_form{
+    display: none;
+    max-width: 360px;
+}
+
+.hidden_form h3{
+    font-size: 28px;
+    color: #000000;
+    text-decoration: none;
+    font-family: 'DINProCond', sans-serif;
+    font-weight: 700;
+    position: relative;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 13px;
+}
+
+.hidden_form p{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.hidden_form .input_text{
+    width: 100%;
+    border: 2px solid #ccc;
+    font-size: 14px;
+    padding: 10px 5px;
+    margin-bottom: 15px;
+}
+
+.hidden_form .input_button{
+    background: url(../images/decor/btn-bg.png) no-repeat;
+    width: 265px;
+    height: 70px;
+    text-align: center;
+    line-height: 60px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    color: #ffffff;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    padding-right: 6px;
+    margin-right: 25px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#thanks_window{
+    font-family: 'DINProCond', sans-serif;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #000000;
+    text-align: center;
+    font-size: 30px;
+}
+
+.black-btn{
+    color: #000000;
+}
+
+.black-btn:hover{
+    color: #ffffff;
+}
+
 
 
 

