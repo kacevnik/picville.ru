@@ -4181,6 +4181,28 @@ button {
     margin-top: 30px;
 }
 
+.error404{
+    font-size: 18px;
+    text-transform: uppercase;
+    font-family: 'DINProCond', sans-serif;
+    font-weight: 700;
+    color: #000000;
+    text-align: center;
+}
+
+.error404.er1{
+    font-size: 140px;
+    margin-top: 60px;
+}
+
+.error404.er2{
+    font-size: 46px;
+}
+
+.error404.er3{
+    font-size: 30px;
+    margin-bottom: 120px;
+}
 
 
 

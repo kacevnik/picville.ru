@@ -1,7 +1,9 @@
 <?php get_header(); ?>
-<section>
-<h1>Ой, это 404!</h1>
-<p>Блаблабла 404 Блаблабла</p>
+<section class="content_page_wrap">
+    <div class="content">
+        <p class="error404 er1">404</p>
+        <p class="error404 er2">Страница</p>
+        <p class="error404 er3">не существует</p>
+    </div>
 </section>
-<?php get_sidebar(); ?>
 <?php get_footer(); ?>
