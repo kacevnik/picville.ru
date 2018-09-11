@@ -6,6 +6,7 @@
         $replace = str_replace(array(' ', '(', ')', '-'), "", $kdv_phone_header);
 
     }
+    dynamic_sidebar( 'footer-sidebar' );
 ?>
     <footer class="footer">
         <div class="content spacer">

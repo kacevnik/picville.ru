@@ -57,6 +57,16 @@ register_sidebar(array(
     'after_title' => "</span>\n", //  После заголовка виджета
 ));
 
+register_sidebar(array(
+    'name' => 'Область над футером', // Название сайдбара
+    'id' => "footer-sidebar", // Идентификатор
+    'description' => 'Область для виджетов над Футером для всех страниц',
+    'before_widget' => '', // До виджета
+    'after_widget' => "", // После виджета
+    'before_title' => '', //  До заголовка виджета
+    'after_title' => "", //  После заголовка виджета
+));
+
 class clean_comments_constructor extends Walker_Comment { // класс, который собирает всю структуру комментов
     public function start_lvl( &$output, $depth = 0, $args = array()) { // что выводим перед дочерними комментариями
         $output .= '<ul class="children">' . "\n";
@@ -523,6 +533,160 @@ if (!function_exists('add_styles')) { // если ф-я уже есть в до�
                         }
                     echo '</div>';
             echo '</section>';
+        }
+    }
+
+//Новый виджет YandexMap
+    add_action('widgets_init', 'widget_yandex_map');
+
+    function widget_yandex_map(){
+        register_widget( 'YandexMapWidget' );
+    }
+
+    class YandexMapWidget extends WP_Widget{
+
+        public function __construct(){
+            $args = array(
+                'name' => 'PV: Yandex Map',
+                'description' => 'Выводит Яндекс карты на любой странице'
+            );
+
+            parent::__construct('widget-yandex-map', '', $args);
+        }
+
+        public function form($instatce){
+            //print_r($instatce);
+            $zoom = isset($instatce['zoom']) ? $instatce['zoom'] : 16;
+            $centr = isset($instatce['centr']) ? $instatce['centr'] : '55.753793, 37.620583';
+            $sgi_dol = isset($instatce['sgi_dol']) ? $instatce['sgi_dol'] : '55.753793, 37.620583';
+            $height = isset($instatce['height']) ? $instatce['height'] : 400;
+            $title = $instatce['title'];
+            $width = $instatce['width'];
+            $css = $instatce['css'];
+            ?>
+                <p>
+                    <label for="<?php echo $this->get_field_id('title'); ?>">Заголовок</label>
+                    <input name="<?php echo $this->get_field_name('title'); ?>" id="<?php echo $this->get_field_id('title'); ?>" value="<?php echo $title; ?>" class="widefat">
+                </p>
+                <p>
+                    <label for="<?php echo $this->get_field_id('width'); ?>">Во всю ширину или нет?</label>
+                    <select name="<?php echo $this->get_field_name('width'); ?>" id="<?php echo $this->get_field_id('width'); ?>" class="widefat">
+                        <option value="1"<?php if($width == 1){echo ' selected="selected"';} ?>>Да</option>
+                        <option value="0"<?php if($width == 0){echo ' selected="selected"';} ?>>Нет</option>
+                    </select>
+                </p>
+                <p>
+                    <label for="<?php echo $this->get_field_id('height'); ?>">Высота блока с картой (в px)</label>
+                    <input name="<?php echo $this->get_field_name('height'); ?>" id="<?php echo $this->get_field_id('height'); ?>" value="<?php echo $height; ?>" class="widefat">
+                </p>
+                <p>
+                    <label for="<?php echo $this->get_field_id('sgi_dol'); ?>">Кординаты точки (Через запятую)</label>
+                    <input name="<?php echo $this->get_field_name('sgi_dol'); ?>" id="<?php echo $this->get_field_id('sgi_dol'); ?>" value="<?php echo $sgi_dol; ?>" class="widefat">
+                </p>
+                <p>
+                    <label for="<?php echo $this->get_field_id('centr'); ?>">Кординаты центр (Через запятую)</label>
+                    <input name="<?php echo $this->get_field_name('centr'); ?>" id="<?php echo $this->get_field_id('centr'); ?>" value="<?php echo $centr; ?>" class="widefat">
+                </p>
+                <p>
+                    <label for="<?php echo $this->get_field_id('zoom'); ?>">Зум карты</label>
+                    <input name="<?php echo $this->get_field_name('zoom'); ?>" id="<?php echo $this->get_field_id('zoom'); ?>" value="<?php echo $zoom; ?>" class="widefat">
+                </p>
+                <?php
+                $posts = get_posts( array(
+                    'numberposts' => 5,
+                    'category'    => 0,
+                    'orderby'     => 'name',
+                    'order'       => 'DESC',
+                    'include'     => array(),
+                    'exclude'     => array(),
+                    'meta_key'    => '',
+                    'meta_value'  =>'',
+                    'post_type'   => 'page',
+                    'suppress_filters' => true, // подавление работы фильтров изменения SQL запроса
+                ) );
+                // echo '<pre>';
+                // print_r($posts);
+                // echo '<pre>';
+                if(count($posts)){
+                echo '<p>Где показывать?</p>';
+                echo '<p>';
+                foreach ($posts as $post) {
+                    ?>
+                        <input type="checkbox" name="<?php echo $this->get_field_name('post'); ?>[]" id="<?php echo $this->get_field_id('post').$post->ID; ?>" value="<?php echo $post->ID; ?>" <?php if(is_array($instatce['post']) && in_array($post->ID, $instatce['post'])){echo " checked";} ?>><label for="<?php echo $this->get_field_id('post').$post->ID; ?>"><?php echo $post->post_title; ?></label><br>
+                    <?php
+                }
+                echo '</p>';
+                ?>
+                <p>
+                    <label for="<?php echo $this->get_field_id('css'); ?>">CSS стили для карты</label>
+                    <textarea name="<?php echo $this->get_field_name('css'); ?>" id="<?php echo $this->get_field_id('css'); ?>" value="" class="widefat"><?php echo $css; ?></textarea>
+                </p>
+                <?php
+            }
+        }
+
+        public function widget($args, $instatce){
+            if(in_array(get_the_ID(), $instatce['post'])){
+                $zoom = isset($instatce['zoom']) ? $instatce['zoom'] : 16;
+                $height = isset($instatce['height']) ? $instatce['height'] : 400;
+                $centr = isset($instatce['centr']) ? $instatce['centr'] : '55.753793, 37.620583';
+                $sgi_dol = isset($instatce['sgi_dol']) ? $instatce['sgi_dol'] : '55.753793, 37.620583';
+                $css = $instatce['css'];
+                if($instatce['title']){
+                ?>
+                <section class="map_title">
+                    <div class="content">
+                        <h1><?php echo $instatce['title']; ?></h1><hr class="hr">
+                    </div>
+                </section>
+                <?php
+                }
+                if($css){
+                ?>
+                <style type="text/css">
+                    #map{
+                        <?php echo $css; ?>
+                    }
+                </style>
+                    <?php } ?>
+                <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+                <script type="text/javascript">
+
+                    ymaps.ready(init);
+
+                    function init () {
+                        var myMap = new ymaps.Map("map", {
+                            center:[<?php echo $centr; ?>],
+                            zoom: <?php echo $zoom; ?>,
+                        });
+
+                        var myGeoObjects = [];
+
+                        myGeoObjects = new ymaps.Placemark([<?php echo $sgi_dol; ?>],{
+                            balloonContentBody: 'Текст в балуне',
+                            preset: 'islands#blueIcon'
+                        },{
+
+                        });
+
+                        var clusterer = new ymaps.Clusterer({
+                            clusterDisableClickZoom: false,
+                            clusterOpenBalloonOnClick: false,
+                        });
+
+                        clusterer.add(myGeoObjects);
+                        myMap.geoObjects.add(clusterer);
+
+                    }
+                </script>
+                <section class="map_body">
+                    <?php if($instatce['width'] != 1){echo '<div class="content">';}?>
+                    <div id="map" style="height: <?php echo $height; ?>px">
+                    </div>
+                    <?php if($instatce['width'] != 1){echo '</div>';}?>
+                </section>
+                <?php
+            }
         }
     }
 
